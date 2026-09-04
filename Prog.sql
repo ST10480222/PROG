@@ -37,7 +37,7 @@ CREATE TABLE Categories (
 
 
 -- =========================================================
--- 3. creating the table ORGANISERS
+-- 3. CREATING THE TABLE ORGANISERS
 -- =========================================================
 
 CREATE TABLE Organisers (
