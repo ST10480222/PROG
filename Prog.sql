@@ -91,7 +91,7 @@ CREATE TABLE Participants (
 
 
 -- =========================================================
--- 6. ENROLMENTS
+-- 6. create table ENROLMENTS
 -- =========================================================
 
 CREATE TABLE Enrolments (
