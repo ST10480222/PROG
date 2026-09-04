@@ -72,7 +72,7 @@ CREATE TABLE Events (
 
 
 -- =========================================================
--- 5. creating the table PARTICIPANTS
+-- 5. CREATING THE TABLE PARTICIPANTS
 -- =========================================================
 
 CREATE TABLE Participants (
