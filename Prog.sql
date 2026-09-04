@@ -6,7 +6,7 @@ USE EventManagementDB;
 
 
 -- =========================================================
--- 1. USERS
+-- 1. creating the tableb USERS
 -- =========================================================
 
 CREATE TABLE Users (
