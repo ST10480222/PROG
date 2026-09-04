@@ -116,7 +116,7 @@ CREATE TABLE Enrolments (
 
 
 -- =========================================================
--- 7. creating the table RESULTS
+-- 7. creating the table RESULTS.
 -- =========================================================
 
 CREATE TABLE Results (
