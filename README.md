@@ -146,3 +146,11 @@ The database design and API plan are intended to remain aligned during Part 2 de
 11. Conclusion
 
 The RaceDay System provides a clear relational database and API structure for managing running events and their associated information.
+
+
+CI BUILD
+<img width="1917" height="782" alt="CI Build" src="https://github.com/user-attachments/assets/7098813e-cf07-4371-b859-f92eb6bc9eb7" />
+
+
+YOUTUBE LINK:https://youtu.be/oEInMSG5Pd8
+
