@@ -52,7 +52,7 @@ CREATE TABLE Organisers (
 
 
 -- =========================================================
--- 4. creating the table EVENTS
+-- 4. CREATING THE TABLE EVENTS
 -- =========================================================
 
 CREATE TABLE Events (
