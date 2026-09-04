@@ -1,0 +1,43 @@
+name: RaceDay Part 1 CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Part 1 files
+        run: |
+          test -f Prog.sql
+          test -f README.md
+          test -f erd.png
+          test -f "Endpoint plan.docx"
+
+      - name: Validate project
+        run: |
+          echo "SQL database script: OK"
+          echo "README: OK"
+          echo "ERD: OK"
+          echo "API endpoint plan: OK"
+
+      - name: Build project package
+        run: |
+          mkdir -p build
+          cp Prog.sql build/
+          cp README.md build/
+          cp erd.png build/
+          cp "Endpoint plan.docx" build/
+
+      - name: Upload Part 1 build
+        uses: actions/upload-artifact@v4
+        with:
+          name: RaceDay-Part1
+          path: build/
