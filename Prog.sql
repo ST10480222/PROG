@@ -9,7 +9,7 @@ USE EventManagementDB;
 
 
 -- =========================================================
--- 1. USERS
+-- 1. CREATING THE TABLE USERS
 -- =========================================================
 
 CREATE TABLE Users (
@@ -24,7 +24,7 @@ CREATE TABLE Users (
 
 
 -- =========================================================
--- 2. ORGANISERS
+-- 2. CREATING THE TABLE ORGANISERS
 -- =========================================================
 
 CREATE TABLE Organisers (
@@ -34,7 +34,7 @@ CREATE TABLE Organisers (
 
 
 -- =========================================================
--- 3. CATEGORIES
+-- 3. CREATING THE TABLE CATEGORIES
 -- =========================================================
 
 CREATE TABLE Categories (
@@ -55,7 +55,7 @@ CREATE TABLE Categories (
 
 
 -- =========================================================
--- 4. EVENTS
+-- 4. CREATING THE TABLE EVENTS
 -- =========================================================
 
 CREATE TABLE Events (
@@ -75,7 +75,7 @@ CREATE TABLE Events (
 
 
 -- =========================================================
--- 5. PARTICIPANTS
+-- 5. CREATING THE TABLE PARTICIPANTS
 -- =========================================================
 
 CREATE TABLE Participants (
@@ -89,7 +89,7 @@ CREATE TABLE Participants (
 
 
 -- =========================================================
--- 6. RESULTS
+-- 6. CREATING THE TABLE RESULTS
 -- =========================================================
 
 CREATE TABLE Results (
@@ -105,7 +105,7 @@ CREATE TABLE Results (
 
 
 -- =========================================================
--- 7. ENROLMENTS
+-- 7. CREATING THE TABLE ENROLMENTS
 -- =========================================================
 
 CREATE TABLE Enrolments (
@@ -128,7 +128,7 @@ CREATE TABLE Enrolments (
 
 
 -- =========================================================
--- INSERT INTO USERS
+-- INSERTING THE VALUES INTO USERS
 -- =========================================================
 
 INSERT INTO Users
@@ -142,7 +142,7 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO ORGANISERS
+-- INSERTING THE VALUES INTO ORGANISERS
 -- =========================================================
 
 INSERT INTO Organisers
@@ -155,7 +155,7 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO CATEGORIES
+-- INSERTING THE VALUES INTO CATEGORIES
 -- =========================================================
 
 INSERT INTO Categories
@@ -168,7 +168,7 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO EVENTS
+-- INSERTING THE VALUES INTO EVENTS
 -- =========================================================
 
 INSERT INTO Events
@@ -213,7 +213,7 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO PARTICIPANTS
+-- INSERTING THE VALUES INTO PARTICIPANTS
 -- =========================================================
 
 INSERT INTO Participants
@@ -227,7 +227,7 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO RESULTS
+-- INSERTING THE VALUES INTO RESULTS
 -- =========================================================
 
 INSERT INTO Results
@@ -241,7 +241,7 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO ENROLMENTS
+-- INSERTING THE VALUES INTO ENROLMENTS
 -- =========================================================
 
 INSERT INTO Enrolments
@@ -255,7 +255,7 @@ VALUES
 
 
 -- =========================================================
--- SELECT ALL TABLES
+-- DOING A QUIRY TO TEST MY TABLES
 -- =========================================================
 
 SELECT * FROM Users;
