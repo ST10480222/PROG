@@ -21,7 +21,7 @@ CREATE TABLE Users (
 
 
 -- =========================================================
--- 2. CATEGORIES
+-- 2. creating the tableb CATEGORIES
 -- =========================================================
 
 CREATE TABLE Categories (
