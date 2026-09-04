@@ -1,7 +1,7 @@
 --CREATING THE DATABASE
 CREATE DATABASE EventManagementDB;
 
--- using database
+-- USING THE DATABASE--
 USE EventManagementDB;
 
 
