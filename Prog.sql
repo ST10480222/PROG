@@ -1,4 +1,7 @@
---CREATING THE DATABASE
+-- =========================================================
+-- CREATING THE DATABASE
+-- =========================================================
+
 CREATE DATABASE EventManagementDB;
 
 -- USING THE DATABASE--
@@ -6,7 +9,7 @@ USE EventManagementDB;
 
 
 -- =========================================================
--- 1. CREATING THE TABLE USERS
+-- 1. USERS
 -- =========================================================
 
 CREATE TABLE Users (
@@ -21,7 +24,17 @@ CREATE TABLE Users (
 
 
 -- =========================================================
--- 2. CREATING THE TABLE  CATEGORIES
+-- 2. ORGANISERS
+-- =========================================================
+
+CREATE TABLE Organisers (
+    OrganiserID INT IDENTITY(1,1) PRIMARY KEY,
+    Reference VARCHAR(100) NOT NULL
+);
+
+
+-- =========================================================
+-- 3. CATEGORIES
 -- =========================================================
 
 CREATE TABLE Categories (
@@ -29,30 +42,20 @@ CREATE TABLE Categories (
     CategoryName VARCHAR(100) NOT NULL,
     CategoryType VARCHAR(50) NOT NULL,
     UserID INT NOT NULL,
+    OrganisorID INT NOT NULL,
 
     CONSTRAINT FK_Categories_Users
         FOREIGN KEY (UserID)
-        REFERENCES Users(UserID)
+        REFERENCES Users(UserID),
+
+    CONSTRAINT FK_Categories_Organisers
+        FOREIGN KEY (OrganisorID)
+        REFERENCES Organisers(OrganiserID)
 );
 
 
 -- =========================================================
--- 3. CREATING THE TABLE ORGANISERS
--- =========================================================
-
-CREATE TABLE Organisers (
-    OrganiserID INT IDENTITY(1,1) PRIMARY KEY,
-    CategoryID INT NOT NULL,
-    Reference VARCHAR(100) NOT NULL,
-
-    CONSTRAINT FK_Organisers_Categories
-        FOREIGN KEY (CategoryID)
-        REFERENCES Categories(CategoryID)
-);
-
-
--- =========================================================
--- 4. CREATING THE TABLE EVENTS
+-- 4. EVENTS
 -- =========================================================
 
 CREATE TABLE Events (
@@ -72,17 +75,12 @@ CREATE TABLE Events (
 
 
 -- =========================================================
--- 5. CREATING THE TABLE PARTICIPANTS
+-- 5. PARTICIPANTS
 -- =========================================================
 
 CREATE TABLE Participants (
     ParticipantID INT IDENTITY(1,1) PRIMARY KEY,
-    UserID INT NOT NULL,
     EventID INT NOT NULL,
-
-    CONSTRAINT FK_Participants_Users
-        FOREIGN KEY (UserID)
-        REFERENCES Users(UserID),
 
     CONSTRAINT FK_Participants_Events
         FOREIGN KEY (EventID)
@@ -91,43 +89,41 @@ CREATE TABLE Participants (
 
 
 -- =========================================================
--- 6. CREATING THE TABLE ENROLMENTS
+-- 6. RESULTS
+-- =========================================================
+
+CREATE TABLE Results (
+    ResultID INT IDENTITY(1,1) PRIMARY KEY,
+    FinishTime TIME,
+    FinishPosition INT,
+    ParticipantID INT NOT NULL,
+
+    CONSTRAINT FK_Results_Participants
+        FOREIGN KEY (ParticipantID)
+        REFERENCES Participants(ParticipantID)
+);
+
+
+-- =========================================================
+-- 7. ENROLMENTS
 -- =========================================================
 
 CREATE TABLE Enrolments (
     EnrolmentID INT IDENTITY(1,1) PRIMARY KEY,
-    ParticipantID INT NOT NULL,
     EventID INT NOT NULL,
-    CategoryID INT NOT NULL,
+    ResultID INT NOT NULL,
     EnrolmentDate DATE NOT NULL,
-
-    CONSTRAINT FK_Enrolments_Participants
-        FOREIGN KEY (ParticipantID)
-        REFERENCES Participants(ParticipantID),
 
     CONSTRAINT FK_Enrolments_Events
         FOREIGN KEY (EventID)
         REFERENCES Events(EventID),
 
-    CONSTRAINT FK_Enrolments_Categories
-        FOREIGN KEY (CategoryID)
-        REFERENCES Categories(CategoryID)
-);
+    CONSTRAINT FK_Enrolments_Results
+        FOREIGN KEY (ResultID)
+        REFERENCES Results(ResultID),
 
-
--- =========================================================
--- 7. creating the table RESULTS.
--- =========================================================
-
-CREATE TABLE Results (
-    ResultID INT IDENTITY(1,1) PRIMARY KEY,
-    EnrolmentID INT NOT NULL,
-    FinishTime TIME,
-    FinishPosition INT,
-
-    CONSTRAINT FK_Results_Enrolments
-        FOREIGN KEY (EnrolmentID)
-        REFERENCES Enrolments(EnrolmentID)
+    CONSTRAINT UQ_Enrolments_ResultID
+        UNIQUE (ResultID)
 );
 
 
@@ -146,29 +142,29 @@ VALUES
 
 
 -- =========================================================
--- INSERT INTO CATEGORIES
--- =========================================================
-
-INSERT INTO Categories
-(CategoryName, CategoryType, UserID)
-VALUES
-('Running', 'Road Race', 1),
-('Cycling', 'Road Cycling', 1),
-('Swimming', 'Open Water', 4),
-('Triathlon', 'Multi-Sport', 4);
-
-
--- =========================================================
 -- INSERT INTO ORGANISERS
 -- =========================================================
 
 INSERT INTO Organisers
-(CategoryID, Reference)
+(Reference)
 VALUES
-(1, 'ORG001'),
-(2, 'ORG002'),
-(3, 'ORG003'),
-(4, 'ORG004');
+('ORG001'),
+('ORG002'),
+('ORG003'),
+('ORG004');
+
+
+-- =========================================================
+-- INSERT INTO CATEGORIES
+-- =========================================================
+
+INSERT INTO Categories
+(CategoryName, CategoryType, UserID, OrganisorID)
+VALUES
+('Running', 'Road Race', 1, 1),
+('Cycling', 'Road Cycling', 1, 2),
+('Swimming', 'Open Water', 4, 3),
+('Triathlon', 'Multi-Sport', 4, 4);
 
 
 -- =========================================================
@@ -178,37 +174,42 @@ VALUES
 INSERT INTO Events
 (EventName, Description, EventDate, Location, Distance, EventType, CategoryID)
 VALUES
-('City 10K Run',
- 'Annual 10 kilometre running event',
- '2026-10-10',
- 'Johannesburg',
- 10.00,
- 'Running',
- 1),
-
-('Cape Cycle Challenge',
- 'Road cycling competition',
- '2026-11-15',
- 'Cape Town',
- 50.00,
- 'Cycling',
- 2),
-
-('Open Water Challenge',
- 'Open water swimming competition',
- '2026-12-05',
- 'Durban',
- 5.00,
- 'Swimming',
- 3),
-
-('National Triathlon',
- 'Swimming, cycling and running event',
- '2027-01-20',
- 'Pretoria',
- 51.50,
- 'Triathlon',
- 4);
+(
+    'City 10K Run',
+    'Annual 10 kilometre running event',
+    '2026-10-10',
+    'Johannesburg',
+    10.00,
+    'Running',
+    1
+),
+(
+    'Cape Cycle Challenge',
+    'Road cycling competition',
+    '2026-11-15',
+    'Cape Town',
+    50.00,
+    'Cycling',
+    2
+),
+(
+    'Open Water Challenge',
+    'Open water swimming competition',
+    '2026-12-05',
+    'Durban',
+    5.00,
+    'Swimming',
+    3
+),
+(
+    'National Triathlon',
+    'Swimming, cycling and running event',
+    '2027-01-20',
+    'Pretoria',
+    51.50,
+    'Triathlon',
+    4
+);
 
 
 -- =========================================================
@@ -216,27 +217,13 @@ VALUES
 -- =========================================================
 
 INSERT INTO Participants
-(UserID, EventID)
+(EventID)
 VALUES
-(2, 1),
-(3, 1),
-(5, 2),
-(2, 3),
-(3, 4);
-
-
--- =========================================================
--- INSERT INTO ENROLMENTS
--- =========================================================
-
-INSERT INTO Enrolments
-(ParticipantID, EventID, CategoryID, EnrolmentDate)
-VALUES
-(1, 1, 1, '2026-09-01'),
-(2, 1, 1, '2026-09-02'),
-(3, 2, 2, '2026-09-03'),
-(4, 3, 3, '2026-09-04'),
-(5, 4, 4, '2026-09-05');
+(1),
+(1),
+(2),
+(3),
+(4);
 
 
 -- =========================================================
@@ -244,24 +231,38 @@ VALUES
 -- =========================================================
 
 INSERT INTO Results
-(EnrolmentID, FinishTime, FinishPosition)
+(FinishTime, FinishPosition, ParticipantID)
 VALUES
-(1, '00:52:30', 1),
-(2, '01:05:45', 2),
-(3, '02:15:20', 1),
-(4, '01:10:35', 1),
-(5, '02:45:10', 3);
+('00:52:30', 1, 1),
+('01:05:45', 2, 2),
+('02:15:20', 1, 3),
+('01:10:35', 1, 4),
+('02:45:10', 3, 5);
 
 
 -- =========================================================
--- RUNNING THE QUIRY OF MY TABLES
+-- INSERT INTO ENROLMENTS
+-- =========================================================
+
+INSERT INTO Enrolments
+(EventID, ResultID, EnrolmentDate)
+VALUES
+(1, 1, '2026-09-01'),
+(1, 2, '2026-09-02'),
+(2, 3, '2026-09-03'),
+(3, 4, '2026-09-04'),
+(4, 5, '2026-09-05');
+
+
+-- =========================================================
+-- SELECT ALL TABLES
 -- =========================================================
 
 SELECT * FROM Users;
 
-SELECT * FROM Categories;
-
 SELECT * FROM Organisers;
+
+SELECT * FROM Categories;
 
 SELECT * FROM Events;
 
